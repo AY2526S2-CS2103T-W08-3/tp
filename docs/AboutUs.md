@@ -11,6 +11,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+
+### Raghad Altelmessani
+
+[[github](https://github.com/altelm)]
+
+* Role: team member
+
 ### Fathan Mubina
 
 <img src="images/memoflora.png" width="200px">
@@ -34,6 +41,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Responsibilities:
     * Implementation
     * Documentation
+
 
 ### Jane Doe
 
