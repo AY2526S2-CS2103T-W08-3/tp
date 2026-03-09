@@ -353,9 +353,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 members without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text should be able to accomplish most tasks faster using commands than using the mouse.
+4. Should be usable by a receptionist with no prior _CLI_ experience after reading the user guide.
+5. Should work fully offline without requiring an internet connection.
+6. Member data, including health information and emergency contacts, should not be transmitted to any external server.
+7. The system is not required to support more than one user at a time.
+8. The product is not required to support multi-branch gym operations.
 
 *{More to be added}*
 
