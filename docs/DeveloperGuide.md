@@ -368,6 +368,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Member**: A registered gym patron whose details are stored and managed in FitDesk
+* **Membership status**: The current standing of a member's membership, which can be one of the following — active, expired, or suspended
+* **Emergency contact**: A person designated by the member to be contacted in the event of a medical or safety emergency
 
 --------------------------------------------------------------------------------------------------------------------
 
