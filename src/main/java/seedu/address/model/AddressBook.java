@@ -16,6 +16,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final GenerateMemberIds generateIds;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        generateIds = new GenerateMemberIds();
     }
 
     public AddressBook() {}
@@ -36,6 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
+        initializeGenerateMemberIds();
     }
 
     //// list overwrite operations
@@ -126,5 +129,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    private void initializeGenerateMemberIds() {
+        int maxId = persons.asUnmodifiableObservableList().stream()
+                .mapToInt(p -> p.getId().getId())
+                .max()
+                .orElse(0);
+        GenerateMemberIds.initialize(maxId);
     }
 }
