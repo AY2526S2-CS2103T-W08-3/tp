@@ -371,7 +371,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
     * 3a1. FitDesk shows an error message.
-  
+
       Use case resumes at step 2.
 
 **Use case: UC03 - Find Member**
@@ -388,13 +388,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Receptionist provides no keywords.
     * 1a1. FitDesk shows an error message.
-  
+
       Use case ends.
 
 
 * 3a. No members match the given keyword(s).
     * 3a1. FitDesk shows an empty list.
-  
+
       Use case ends.
 
 **Use case: UC04 - Edit Member**
@@ -422,7 +422,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3b. Receptionist cancels the edit operation
     * 3b1. Receptionist cancels the edit request.
     * 3b2. FitDesk discards the changes and returns to the main member list.
-  
+
       Use case ends.
 
 **Use case: UC05 - Filter Member List by Status**
