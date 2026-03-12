@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -83,7 +85,8 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code MemberStatus} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withMemberStatus(String memberStatus) {
-        descriptor.setMemberStatus(new MemberStatus(memberStatus));
+        LocalDate date = LocalDate.parse(memberStatus, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        descriptor.setMemberStatus(new MemberStatus(date));
         return this;
     }
 
