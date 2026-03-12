@@ -11,7 +11,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.MemberStatus;
 import seedu.address.model.person.MembershipJoinDate;
 import seedu.address.model.person.MembershipType;
 import seedu.address.model.person.Name;
@@ -25,7 +24,7 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(GenerateMemberIds.generateNextId(), new Name("Alex Yeoh"), new Phone("87438807"), 
+            new Person(GenerateMemberIds.generateNextId(), new Name("Alex Yeoh"), new Phone("87438807"),
                 new Gender("M"), new DateOfBirth("02-02-2002"),
                 new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"),
                 new MembershipType("annual"), new MembershipJoinDate("11-Mar-2026"), getTagSet("friends")),
