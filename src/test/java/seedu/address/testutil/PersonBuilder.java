@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.MemberStatus;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -18,11 +21,17 @@ public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_GENDER = "F";
+    public static final String DEFAULT_DATEOFBIRTH = "02-02-2000";
+    public static final String DEFAULT_MEMBERSTATUS = "valid";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
+    private Gender gender;
+    private DateOfBirth dateOfBirth;
+    private MemberStatus memberStatus;
     private Email email;
     private Address address;
     private Set<Tag> tags;
@@ -33,6 +42,9 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
+        gender = new Gender(DEFAULT_GENDER);
+        dateOfBirth = new DateOfBirth(DEFAULT_DATEOFBIRTH);
+        memberStatus = new MemberStatus(DEFAULT_MEMBERSTATUS);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -44,6 +56,9 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
+        gender = personToCopy.getGender();
+        dateOfBirth = personToCopy.getDateOfBirth();
+        memberStatus = personToCopy.getMemberStatus();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
@@ -82,6 +97,29 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
+    /**
+     * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = new DateOfBirth(dateOfBirth);
+        return this;
+    }
+
+    /**
+     * Sets the {@code MemberStatus} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMemberStatus(String memberStatus) {
+        this.memberStatus = new MemberStatus(memberStatus);
+        return this;
+    }
+    /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
@@ -90,7 +128,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, gender, dateOfBirth, memberStatus, email, address, tags);
     }
 
 }
