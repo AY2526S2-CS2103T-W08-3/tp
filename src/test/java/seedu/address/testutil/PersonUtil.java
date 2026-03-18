@@ -38,7 +38,6 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_GENDER + person.getGender().gender + " ");
         sb.append(PREFIX_DATEOFBIRTH + person.getDateOfBirth().dateOfBirth + " ");
-        sb.append(PREFIX_MEMBERSTATUS + person.getMemberStatus().memberStatus + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_MEMBERSHIP_TYPE + person.getMembershipType().value + " ");
         sb.append(PREFIX_ADDRESS + person.getEmergencyContact().value + " ");
