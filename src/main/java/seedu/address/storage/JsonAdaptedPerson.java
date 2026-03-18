@@ -46,12 +46,16 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
 
-    public JsonAdaptedPerson(@JsonProperty("member id") String id, @JsonProperty("name") String name,
-            @JsonProperty("phone") String phone, @JsonProperty("gender") String gender,
+    public JsonAdaptedPerson(@JsonProperty("member id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("phone") String phone,
+            @JsonProperty("gender") String gender,
             @JsonProperty("dateOfBirth") String dateOfBirth,
             @JsonProperty("email") String email,
-            @JsonProperty("emergency contact") String emergencyContact, @JsonProperty("type") String type,
-            @JsonProperty("join date") String joinDate, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("emergency contact") String emergencyContact,
+            @JsonProperty("type") String type,
+            @JsonProperty("join date") String joinDate,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.id = id;
         this.name = name;
         this.phone = phone;

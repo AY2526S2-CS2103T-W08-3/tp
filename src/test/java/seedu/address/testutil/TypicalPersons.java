@@ -65,19 +65,19 @@ public class TypicalPersons {
             .withType("Annual")
             .withTags("friends").build();
     public static final Person ELLE = new PersonBuilder()
-            .withName("Elle Meyer").withPhone("9482224")
+            .withName("Elle Meyer").withPhone("94822243")
             .withGender("F").withDateOfBirth("01-01-1990")
             .withType("Annual")
             .withEmail("werner@example.com")
             .withEmergencyContact("98540329").build();
     public static final Person FIONA = new PersonBuilder()
-            .withName("Fiona Kunz").withPhone("9482427")
+            .withName("Fiona Kunz").withPhone("94824278")
             .withGender("F").withDateOfBirth("01-01-1990")
             .withType("Annual")
             .withEmail("lydia@example.com")
             .withEmergencyContact("90112275").build();
     public static final Person GEORGE = new PersonBuilder()
-            .withName("George Best").withPhone("9482442")
+            .withName("George Best").withPhone("94824421")
             .withGender("M").withDateOfBirth("01-01-1990")
             .withType("Annual")
             .withEmail("anna@example.com")
@@ -85,13 +85,13 @@ public class TypicalPersons {
 
     // Manually added
     public static final Person HOON = new PersonBuilder()
-            .withName("Hoon Meier").withPhone("8482424")
+            .withName("Hoon Meier").withPhone("84824241")
             .withGender("M").withDateOfBirth("01-01-1990")
             .withType("Annual")
             .withEmail("stefan@example.com")
             .withEmergencyContact("88002476").build();
     public static final Person IDA = new PersonBuilder()
-            .withName("Ida Mueller").withPhone("8482131")
+            .withName("Ida Mueller").withPhone("84821316")
             .withGender("F").withDateOfBirth("01-01-1990")
             .withType("Annual")
             .withEmail("hans@example.com")

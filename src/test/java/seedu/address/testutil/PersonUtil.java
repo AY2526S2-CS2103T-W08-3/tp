@@ -62,7 +62,7 @@ public class PersonUtil {
                 .append(memberStatus.memberStatus).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getEmergencyContact().ifPresent(
-                address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+                emergencyContact -> sb.append(PREFIX_ADDRESS).append(emergencyContact.value).append(" "));
         descriptor.getType().ifPresent(
                 membershipType -> sb.append(PREFIX_MEMBERSHIP_TYPE).append(membershipType.value).append(" "));
         if (descriptor.getTags().isPresent()) {

@@ -39,9 +39,9 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setGender(person.getGender());
         descriptor.setDateOfBirth(person.getDateOfBirth());
-        descriptor.setMemberStatus(person.getMemberStatus());
         descriptor.setEmail(person.getEmail());
         descriptor.setEmergencyContact(person.getEmergencyContact());
+        descriptor.setJoinDate(person.getJoinDate());
         descriptor.setType(person.getMembershipType());
         descriptor.setTags(person.getTags());
     }
@@ -87,10 +87,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code EmergencyContact} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setEmergencyContact(new EmergencyContact(address));
+    public EditPersonDescriptorBuilder withEmergencyContact(String emergencyContact) {
+        descriptor.setEmergencyContact(new EmergencyContact(emergencyContact));
         return this;
     }
 

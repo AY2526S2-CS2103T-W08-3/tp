@@ -50,7 +50,7 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_EMERGENCY_CONTACT_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmergencyContact(VALID_EMERGENCY_CONTACT_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different type -> returns false
