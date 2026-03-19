@@ -56,7 +56,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
         DateOfBirth dateOfBirth = ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATEOFBIRTH).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        EmergencyContact address = ParserUtil.parseEmergencyContact(argMultimap.getValue(PREFIX_EMERGENCY_CONTACT).get());
+        EmergencyContact address = ParserUtil.parseEmergencyContact(argMultimap.getValue(PREFIX_EMERGENCY_CONTACT)
+                .get());
         MembershipType membershipType = ParserUtil.parseType(argMultimap.getValue(PREFIX_MEMBERSHIP_TYPE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         MemberId memberId = GenerateMemberIds.generateNextId();
