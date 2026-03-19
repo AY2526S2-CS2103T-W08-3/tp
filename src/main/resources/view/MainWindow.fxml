@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="FitDesk" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/fitdesk.png" />
   </icons>
   <scene>
     <Scene>
@@ -62,12 +62,11 @@
 
         <HBox VBox.vgrow="ALWAYS">
           <children>
-            <VBox fx:id="memberDetails" styleClass="pane-with-border" HBox.Hgrow="ALWAYS">
+            <VBox fx:id="memberDetails"  minWidth="250" styleClass="pane-with-border" HBox.Hgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
               <StackPane fx:id="memberDetailsPlaceholder" HBox.hgrow="ALWAYS" />
-
             </VBox>
             <VBox fx:id="personList" prefWidth="800" styleClass="pane-with-border" HBox.hgrow="NEVER">
               <padding>
@@ -85,9 +84,9 @@
                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="185.0" styleClass="attribute-bar" text="Member ID" textAlignment="CENTER" GridPane.columnIndex="2" />
                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="170.0" styleClass="attribute-bar" text="Status" textAlignment="CENTER" GridPane.columnIndex="3" />
                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="160.0" styleClass="attribute-bar" text="Expires" textAlignment="CENTER" GridPane.columnIndex="4" />
-                <rowConstraints>
-                  <RowConstraints />
-                </rowConstraints>
+                        <rowConstraints>
+                           <RowConstraints />
+                        </rowConstraints>
 
               </GridPane>
               <StackPane fx:id="personListPanelPlaceholder" HBox.hgrow="ALWAYS" />
