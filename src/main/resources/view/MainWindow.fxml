@@ -62,17 +62,17 @@
 
         <HBox VBox.vgrow="ALWAYS">
           <children>
-            <VBox fx:id="memberDetails"  minWidth="250" styleClass="pane-with-border" HBox.Hgrow="ALWAYS">
+            <VBox fx:id="memberDetails" styleClass="pane-with-border" HBox.Hgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
               <StackPane fx:id="memberDetailsPlaceholder" HBox.hgrow="ALWAYS" />
             </VBox>
-            <VBox fx:id="personList" prefWidth="800" styleClass="pane-with-border" HBox.hgrow="NEVER">
+            <VBox fx:id="personList" styleClass="pane-with-border" HBox.hgrow="NEVER">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-              <GridPane fx:id="attributeBar" prefHeight="47.0" prefWidth="800.0" styleClass="attribute-bar">
+              <GridPane fx:id="attributeBar" styleClass="attribute-bar">
                 <columnConstraints>
                   <ColumnConstraints prefWidth="60.0" />
                   <ColumnConstraints prefWidth="180.0" />
@@ -84,9 +84,6 @@
                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="185.0" styleClass="attribute-bar" text="Member ID" textAlignment="CENTER" GridPane.columnIndex="2" />
                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="170.0" styleClass="attribute-bar" text="Status" textAlignment="CENTER" GridPane.columnIndex="3" />
                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="160.0" styleClass="attribute-bar" text="Expires" textAlignment="CENTER" GridPane.columnIndex="4" />
-                        <rowConstraints>
-                           <RowConstraints />
-                        </rowConstraints>
 
               </GridPane>
               <StackPane fx:id="personListPanelPlaceholder" HBox.hgrow="ALWAYS" />
