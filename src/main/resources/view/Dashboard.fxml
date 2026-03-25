@@ -37,27 +37,6 @@
             </image>
         </ImageView>
     </HBox>
-
-<!--    <HBox fx:id="dashCard" spacing="30">-->
-<!--        <VBox>-->
-<!--            <padding>-->
-<!--                <Insets bottom="5" left="15" right="10" top="5" />-->
-<!--            </padding>-->
-<!--            <Label fx:id="annualMembers" styleClass="dash-number-label" />-->
-<!--            <Label styleClass="details-small-label" text="Annual Memberships" />-->
-<!--        </VBox>-->
-
-<!--    </HBox>-->
-
-<!--    <HBox fx:id="dashCard" spacing="10">-->
-<!--        <VBox>-->
-<!--            <padding>-->
-<!--                <Insets bottom="5" left="15" right="10" top="5" />-->
-<!--            </padding>-->
-<!--            <Label fx:id="monthlyMembers" styleClass="dash-number-label" />-->
-<!--            <Label styleClass="details-small-label" text="Monthly Memberships" />-->
-<!--        </VBox>-->
-<!--    </HBox>-->
     <HBox fx:id="dashCard" spacing="10">
         <VBox>
             <padding>
