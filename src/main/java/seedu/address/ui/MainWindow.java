@@ -46,6 +46,8 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
     @FXML
     private StackPane memberDetailsPlaceholder;
+    @FXML
+    private StackPane dashboardPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -138,13 +140,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        primaryStage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-            if (personListPanel.getListView().getSelectionModel().getSelectedItem() != null) {
-                personListPanel.getListView().getSelectionModel().clearSelection();
-                memberDetailsPlaceholder.getChildren().setAll(dashBoard.getRoot());
-            }
-        });
     }
 
     /**
@@ -157,6 +152,12 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if (personListPanel.getListView().getSelectionModel().getSelectedItem() != null) {
+                personListPanel.getListView().getSelectionModel().clearSelection();
+                memberDetailsPlaceholder.getChildren().setAll(dashBoard.getRoot());
+            }
+        });
     }
 
     /**
