@@ -34,6 +34,8 @@ public class RemarkCommand extends Command {
 
     private final Index index;
     private final Remark remark;
+    private Person originalPerson;
+    private Person editedPerson;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
@@ -72,9 +74,32 @@ public class RemarkCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        originalPerson = personToEdit;
+        this.editedPerson = editedPerson;
 
         String message = remark.value.isEmpty() ? MESSAGE_DELETE_REMARK_SUCCESS : MESSAGE_ADD_REMARK_SUCCESS;
         return new CommandResult(String.format(message, Messages.format(editedPerson)));
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+
+    @Override
+    public void undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (originalPerson == null || editedPerson == null) {
+            throw new CommandException("Unable to undo remark: missing original data.");
+        }
+
+        if (!model.hasPerson(editedPerson)) {
+            throw new CommandException("Unable to undo remark: edited person not found.");
+        }
+
+        model.setPerson(editedPerson, originalPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override

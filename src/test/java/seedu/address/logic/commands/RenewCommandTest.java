@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.RenewCommand.RenewPersonDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -103,6 +105,45 @@ public class RenewCommandTest {
                 new RenewPersonDescriptorBuilder().withType(VALID_TYPE_BOB).build());
 
         assertCommandFailure(renewCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void executeUndo_renewRestoresModel() throws Exception {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        RenewPersonDescriptor descriptor = new RenewPersonDescriptorBuilder().withType(VALID_TYPE_BOB).build();
+        RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_PERSON, descriptor);
+
+        renewCommand.execute(model);
+        renewCommand.undo(model);
+
+        assertTrue(renewCommand.isUndoable());
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void undo_withoutExecute_throwsCommandException() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        RenewPersonDescriptor descriptor = new RenewPersonDescriptorBuilder().withType(VALID_TYPE_BOB).build();
+        RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertThrows(CommandException.class,
+                "Unable to undo renew: missing original data.", () -> renewCommand.undo(model));
+    }
+
+    @Test
+    public void undo_renewedPersonMissing_throwsCommandException() throws Exception {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        RenewPersonDescriptor descriptor = new RenewPersonDescriptorBuilder().withType(VALID_TYPE_BOB).build();
+        RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_PERSON, descriptor);
+
+        renewCommand.execute(model);
+        Person renewedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        model.deletePerson(renewedPerson);
+
+        assertThrows(CommandException.class,
+                "Unable to undo renew: renewed member not found.", () -> renewCommand.undo(model));
     }
 
     @Test
