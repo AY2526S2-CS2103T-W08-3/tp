@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -23,24 +24,44 @@ import seedu.address.ui.CommandBox.CommandExecutor;
 
 public class CommandBoxHistoryTest {
     private static final long FX_TIMEOUT_SECONDS = 5;
+    private static volatile boolean javaFxInitialized = false;
 
     @BeforeAll
     static void initJavaFx() {
         // JavaFX toolkit needs to be initialized once before creating Controls.
-        if (Platform.isFxApplicationThread()) {
-            return;
-        }
         try {
+            if (Platform.isFxApplicationThread()) {
+                javaFxInitialized = true;
+                return;
+            }
+
+            // Configure headless mode only on Linux/CI environments.
+            // (These properties can cause issues on Windows.)
+            String osName = System.getProperty("os.name", "").toLowerCase();
+            boolean isLinux = osName.contains("linux");
+            if (isLinux) {
+                System.setProperty("javafx.platform", "Monocle");
+                System.setProperty("monocle.platform", "Headless");
+                System.setProperty("prism.order", "sw");
+                System.setProperty("glass.platform", "Monocle");
+                System.setProperty("monocle.headless", "true");
+            }
+
             Platform.startup(() -> {
                 // no-op
             });
+            javaFxInitialized = true;
         } catch (IllegalStateException e) {
             // toolkit is already initialized
+            javaFxInitialized = true;
+        } catch (UnsupportedOperationException | NullPointerException e) {
+            javaFxInitialized = false;
         }
     }
 
     @Test
     void history_upAndDown_cyclesThroughPreviouslyEnteredCommands() throws Exception {
+        Assumptions.assumeTrue(javaFxInitialized, "JavaFX toolkit could not be initialized in this environment.");
         runOnFxThread(() -> {
             CommandExecutor executor = new NoOpCommandExecutor();
             CommandBox commandBox = new CommandBox(executor);
