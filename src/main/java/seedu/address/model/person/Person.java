@@ -26,6 +26,7 @@ public class Person {
     private final MembershipType membershipType;
     private final MembershipJoinDate joinDate;
     private final MembershipExpiryDate expiryDate;
+    private final Remark remark;
 
     /**
      * Every field must be present and not null.
@@ -33,7 +34,17 @@ public class Person {
     public Person(MemberId id, Name name, Phone phone, Gender gender,
                   DateOfBirth dateOfBirth, Email email, EmergencyContact emergencyContact,
                   MembershipType type, MembershipJoinDate joinDate, MembershipExpiryDate expiryDate) {
-        requireAllNonNull(id, name, phone, email, emergencyContact, type, joinDate);
+        this(id, name, phone, gender, dateOfBirth, email, emergencyContact, type, joinDate, expiryDate,
+                new Remark(""));
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(MemberId id, Name name, Phone phone, Gender gender,
+                  DateOfBirth dateOfBirth, Email email, EmergencyContact emergencyContact,
+                  MembershipType type, MembershipJoinDate joinDate, MembershipExpiryDate expiryDate, Remark remark) {
+        requireAllNonNull(id, name, phone, email, emergencyContact, type, joinDate, remark);
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -44,6 +55,7 @@ public class Person {
         this.membershipType = type;
         this.joinDate = joinDate;
         this.expiryDate = expiryDate;
+        this.remark = remark;
         this.memberStatus = new MemberStatus(this.expiryDate.getExpiryDate());
     }
 
@@ -86,6 +98,10 @@ public class Person {
 
     public MemberStatus getMemberStatus() {
         return this.memberStatus;
+    }
+
+    public Remark getRemark() {
+        return this.remark;
     }
 
     /**
