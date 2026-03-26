@@ -131,6 +131,12 @@ public class MainWindow extends UiPart<Stage> {
                         memberDetailsPlaceholder.getChildren().setAll(dashBoard.getRoot());
                     }
                 });
+        primaryStage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if (personListPanel.getListView().getSelectionModel().getSelectedItem() != null) {
+                personListPanel.getListView().getSelectionModel().clearSelection();
+                memberDetailsPlaceholder.getChildren().setAll(dashBoard.getRoot());
+            }
+        });
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -152,12 +158,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-        primaryStage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-            if (personListPanel.getListView().getSelectionModel().getSelectedItem() != null) {
-                personListPanel.getListView().getSelectionModel().clearSelection();
-                memberDetailsPlaceholder.getChildren().setAll(dashBoard.getRoot());
-            }
-        });
     }
 
     /**

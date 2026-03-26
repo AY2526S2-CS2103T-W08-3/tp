@@ -9,10 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.Logic;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class DashboardStatsTest {
+    private Logic logic;
+    private DashBoard dashBoard;
+
     @Test
     public void getTotal_returnsCorrectCount() {
         ObservableList<Person> list = FXCollections.observableArrayList();
@@ -29,20 +33,27 @@ public class DashboardStatsTest {
         assertEquals(1, DashboardStats.getMonthly(list));
     }
     @Test
-    public void newMemberThisWeek_returnsCorrectCount() {
+    public void getNewMember_thisWeek_returnsCorrectCount() {
         ObservableList<Person> list = FXCollections.observableArrayList();
         String dayThisWeek = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         list.add(new PersonBuilder().withJoinDate(dayThisWeek).build());
         assertEquals(1, DashboardStats.getNewMembers(list));
     }
     @Test
-    public void notNewMemberThisWeek_returnsCorrectCount() {
+    public void getNewMember_beforeThisWeek_returnsZero() {
         ObservableList<Person> list = FXCollections.observableArrayList();
         list.add(new PersonBuilder().withJoinDate("11-03-2026").build());
         assertEquals(0, DashboardStats.getNewMembers(list));
     }
     @Test
-    public void getExpiringMembers_returnsCorrectCount() {
+    public void getNewMember_afterNextWeek_returnsZero() {
+        ObservableList<Person> list = FXCollections.observableArrayList();
+        String day = LocalDate.now().plusWeeks(2).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        list.add(new PersonBuilder().withJoinDate("11-03-2026").build());
+        assertEquals(0, DashboardStats.getNewMembers(list));
+    }
+    @Test
+    public void getExpiry_beforeToday_returnsZero() {
         ObservableList<Person> list = FXCollections.observableArrayList();
         list.add(new PersonBuilder().withExpiryDate("11-03-2026").build());
         assertEquals(0, DashboardStats.getExpiring(list));
@@ -53,5 +64,12 @@ public class DashboardStatsTest {
         String dayNextWeek = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         list.add(new PersonBuilder().withExpiryDate(dayNextWeek).build());
         assertEquals(1, DashboardStats.getExpiring(list));
+    }
+    @Test
+    public void getExpiringMembersAfterNextWeek_returnsZero() {
+        ObservableList<Person> list = FXCollections.observableArrayList();
+        String day = LocalDate.now().plusWeeks(3).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        list.add(new PersonBuilder().withExpiryDate(day).build());
+        assertEquals(0, DashboardStats.getExpiring(list));
     }
 }
