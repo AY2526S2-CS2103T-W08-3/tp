@@ -135,6 +135,20 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
+    /**
+     * Sets the {@code MembershipJoinDate} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withJoinDate(String joinDate) {
+        this.joinDate = new MembershipJoinDate(joinDate);
+        return this;
+    }
+    /**
+     * Sets the {@code MembershipExpiryDate} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withExpiryDate(String expiryDate) {
+        this.expiryDate = new MembershipExpiryDate(expiryDate);
+        return this;
+    }
 
     /**
      * Sets the {@code Remark} of the {@code Person} that we are building.

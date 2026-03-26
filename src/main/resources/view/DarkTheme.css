@@ -323,6 +323,24 @@
     -fx-border-width: 0;
 }
 
+#dashCard {
+    -fx-background-color: #193cb8;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 0;
+}
+#dashCardAnnual {
+    -fx-background-color: derive(#d9d9d9, 20%);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 0;
+}
+#dashCardMonthly {
+    -fx-background-color: derive(#d9d9d9, 20%);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 0;
+}
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -381,7 +399,7 @@
 }
 .details-small-label {
     -fx-font-family: "Metro";
-    -fx-font-size: 20px;
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
@@ -430,4 +448,34 @@
     -fx-background-color: #fa7726;
     -fx-padding: 2 10 2 10;
     -fx-background-radius: 5;
+}
+
+.dash-title-label {
+    -fx-font-family: "Metro";
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-text-fill: #010504;
+}
+.dash-number-label {
+    -fx-font-family: "Metro";
+    -fx-font-weight: bold;
+    -fx-font-size: 43px;
+    -fx-text-fill: white;
+}
+.dash-description-label {
+    -fx-font-family: "Metro";
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+.dash-small-label {
+    -fx-font-family: "Metro";
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+}
+#annualMembers.dash-number-label {
+    -fx-text-fill:#fa7726
+}
+#monthlyMembers.dash-number-label {
+    -fx-text-fill:#193cba
 }

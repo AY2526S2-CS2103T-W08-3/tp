@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_LEFT" spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+    <padding>
+        <Insets bottom="10" left="15" right="30" top="10" />
+    </padding>
+
+    <Label contentDisplay="TOP" styleClass="dash-title-label" text="Members Overview" />
+
+    <HBox fx:id="dashCard" spacing="15" alignment="CENTER_LEFT">
+        <padding>
+            <Insets bottom="5" left="50" right="10" top="5" />
+        </padding>
+<!--        <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">-->
+<!--            <image>-->
+<!--                <Image url="@/images/group.png" />-->
+<!--            </image>-->
+<!--        </ImageView>-->
+        <Label fx:id="memberCount" styleClass="dash-number-label" text="\$memberCount" />
+        <Label styleClass="dash-description-label" text="Registered Members" />
+    </HBox>
+
+    <HBox fx:id="dashCard" spacing="15" alignment="CENTER_LEFT">
+        <padding>
+            <Insets bottom="5" left="50" right="10" top="5" />
+        </padding>
+        <Label fx:id="expiringMemberships" styleClass="dash-number-label" />
+        <VBox alignment="CENTER_LEFT" spacing="-5">
+            <Label styleClass="dash-description-label" text="Expiring Memberships"/>
+            <Label styleClass="dash-small-label" text="(Expiring in Next 7 Days)" />
+        </VBox>
+<!--        <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">-->
+<!--            <image>-->
+<!--                <Image url="@/images/alert.png" />-->
+<!--            </image>-->
+<!--        </ImageView>-->
+    </HBox>
+    <HBox fx:id="dashCard" spacing="15" alignment="CENTER_LEFT">
+        <padding>
+            <Insets bottom="5" left="50" right="10" top="5" />
+        </padding>
+        <Label fx:id="newMembers" styleClass="dash-number-label" />
+        <VBox alignment="CENTER_LEFT" spacing="-5">
+            <Label styleClass="dash-description-label" text="New Memberships" />
+            <Label styleClass="dash-small-label" text="(This Week)" />
+        </VBox>
+<!--        <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">-->
+<!--            <image>-->
+<!--                <Image url="@/images/add-user.png" />-->
+<!--            </image>-->
+<!--        </ImageView>-->
+    </HBox>
+    <HBox spacing="10" stylesheets="@DarkTheme.css">
+        <HBox fx:id="dashCardAnnual" prefWidth="225" spacing="15" alignment="CENTER_LEFT">
+            <padding>
+                <Insets bottom="5" left="15" right="15" top="5" />
+            </padding>
+            <Label fx:id="annualMembers" styleClass="dash-number-label" />
+            <VBox spacing="-10" alignment="CENTER_LEFT">
+                <Label styleClass="dash-description-label" text="Annual" style="-fx-text-fill: #fa7726"/>
+                <Label styleClass="dash-description-label" text="Memberships" style="-fx-text-fill: #fa7726"/>
+            </VBox>
+        </HBox>
+        <HBox fx:id="dashCardMonthly" prefWidth="225" spacing="15" alignment="CENTER_LEFT">
+            <padding>
+                <Insets bottom="5" left="15" right="15" top="5" />
+            </padding>
+            <Label fx:id="monthlyMembers" styleClass="dash-number-label" />
+            <VBox spacing="-10" alignment="CENTER_LEFT">
+                <Label text="Monthly" styleClass="dash-description-label" style="-fx-text-fill: #193cba"/>
+                <Label text="Memberships" styleClass="dash-description-label" style="-fx-text-fill: #193cba"/>
+            </VBox>
+        </HBox>
+    </HBox>
+</VBox>
