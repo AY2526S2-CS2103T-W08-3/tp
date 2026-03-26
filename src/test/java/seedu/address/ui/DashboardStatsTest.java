@@ -41,4 +41,17 @@ public class DashboardStatsTest {
         list.add(new PersonBuilder().withJoinDate("11-03-2026").build());
         assertEquals(0, DashboardStats.getNewMembers(list));
     }
+    @Test
+    public void getExpiringMembers_returnsCorrectCount() {
+        ObservableList<Person> list = FXCollections.observableArrayList();
+        list.add(new PersonBuilder().withExpiryDate("11-03-2026").build());
+        assertEquals(0, DashboardStats.getExpiring(list));
+    }
+    @Test
+    public void getExpiringMembersInNextWeek_returnsCorrectCount() {
+        ObservableList<Person> list = FXCollections.observableArrayList();
+        String dayNextWeek = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        list.add(new PersonBuilder().withExpiryDate(dayNextWeek).build());
+        assertEquals(1, DashboardStats.getExpiring(list));
+    }
 }

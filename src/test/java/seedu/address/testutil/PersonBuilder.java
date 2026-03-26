@@ -137,6 +137,13 @@ public class PersonBuilder {
         this.joinDate = new MembershipJoinDate(joinDate);
         return this;
     }
+    /**
+     * Sets the {@code MembershipExpiryDate} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withExpiryDate(String expiryDate) {
+        this.expiryDate = new MembershipExpiryDate(expiryDate);
+        return this;
+    }
 
     public Person build() {
         return new Person(id, name, phone, gender, dateOfBirth, email, emergencyContact, type, joinDate, expiryDate);
