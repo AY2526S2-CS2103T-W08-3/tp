@@ -18,6 +18,7 @@ import seedu.address.model.person.MembershipType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -36,6 +37,7 @@ class JsonAdaptedPerson {
     private final String type;
     private final String joinDate;
     private final String expiryDate;
+    private final String remark;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -51,7 +53,8 @@ class JsonAdaptedPerson {
             @JsonProperty("emergency contact") String emergencyContact,
             @JsonProperty("type") String type,
             @JsonProperty("join date") String joinDate,
-            @JsonProperty("expiry date") String expiryDate) {
+            @JsonProperty("expiry date") String expiryDate,
+            @JsonProperty("remark") String remark) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -62,6 +65,7 @@ class JsonAdaptedPerson {
         this.type = type;
         this.joinDate = joinDate;
         this.expiryDate = expiryDate;
+        this.remark = remark;
     }
 
     /**
@@ -72,12 +76,13 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         gender = source.getGender().gender;
-        dateOfBirth = source.getDateOfBirth().dateOfBirth;
+        dateOfBirth = source.getDateOfBirth().toString();
         email = source.getEmail().value;
         emergencyContact = source.getEmergencyContact().value;
         type = source.getMembershipType().toString();
         joinDate = source.getJoinDate().toString();
         expiryDate = source.getExpiryDate().toString();
+        remark = source.getRemark().value;
     }
 
     /**
@@ -166,8 +171,10 @@ class JsonAdaptedPerson {
         } else {
             modelExpiryDate = new MembershipExpiryDate(modelJoinDate.getDate(), modelType);
         }
+        final Remark modelRemark = new Remark(remark != null ? remark : "");
+
         return new Person(modelId, modelName, modelPhone, modelGender, modelDateOfBirth,
-                          modelEmail, modelEmergencyContact, modelType, modelJoinDate, modelExpiryDate);
+                          modelEmail, modelEmergencyContact, modelType, modelJoinDate, modelExpiryDate, modelRemark);
     }
 
 }

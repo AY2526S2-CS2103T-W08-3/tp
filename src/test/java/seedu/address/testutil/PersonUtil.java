@@ -4,7 +4,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBERSHIP_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -33,7 +32,7 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_GENDER + person.getGender().gender + " ");
-        sb.append(PREFIX_DATEOFBIRTH + person.getDateOfBirth().dateOfBirth + " ");
+        sb.append(PREFIX_DATEOFBIRTH + person.getDateOfBirth().toString() + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_MEMBERSHIP_TYPE + person.getMembershipType().value + " ");
         sb.append(PREFIX_EMERGENCY_CONTACT + person.getEmergencyContact().value + " ");
@@ -49,11 +48,10 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getGender().ifPresent(gender -> sb.append(PREFIX_GENDER).append(gender.gender).append(" "));
         descriptor.getDateOfBirth().ifPresent(
-                dateOfBirth -> sb.append(PREFIX_DATEOFBIRTH).append(dateOfBirth.dateOfBirth).append(" "));
+                dateOfBirth -> sb.append(PREFIX_DATEOFBIRTH).append(dateOfBirth.toString()).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getEmergencyContact().ifPresent(
                 contact -> sb.append(PREFIX_EMERGENCY_CONTACT).append(contact.value).append(" "));
-        descriptor.getJoinDate().ifPresent(join -> sb.append(PREFIX_JOIN_DATE).append(join.value).append(" "));
         descriptor.getType().ifPresent(
                 membershipType -> sb.append(PREFIX_MEMBERSHIP_TYPE).append(membershipType.value).append(" "));
         return sb.toString();

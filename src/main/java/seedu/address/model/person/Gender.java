@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain one alphanumeric characters F or M";
-    public static final String VALIDATION_REGEX = "[A-Za-z]";
+            "Gender should only contain one character: M or F (case-insensitive).";
+    public static final String VALIDATION_REGEX = "[MmFf]";
     public final String gender;
 
     /**

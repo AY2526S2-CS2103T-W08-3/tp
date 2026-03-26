@@ -25,7 +25,6 @@ public class DetailsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Details displayed";
 
     private final Index index;
-
     /**
      * @param index of the person in the person list to display details of
      */

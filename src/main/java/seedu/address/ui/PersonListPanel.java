@@ -28,6 +28,12 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
+
+    /**
+     * Returns the {@code ListView} that displays the persons.
+     *
+     * @return the list view for persons
+     */
     public ListView<Person> getListView() {
         return personListView;
     }
@@ -49,7 +55,9 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Selects the given {@code Person} in the list view and scrolls to it.
+     * Selects the given {@code Person} in the UI list and scrolls to it.
+     *
+     * @param person the person to select
      */
     public void selectPerson(Person person) {
         personListView.getSelectionModel().select(person);

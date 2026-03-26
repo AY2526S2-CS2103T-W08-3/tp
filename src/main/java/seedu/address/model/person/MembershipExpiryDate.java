@@ -8,8 +8,10 @@ import java.time.format.DateTimeFormatter;
  * Represents the start date of a member's membership
  */
 public class MembershipExpiryDate {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Membership expiry date should be in the format DD-MM-YYYY and should be a valid date.";
+    public static final String VALIDATION_REGEX = "^((0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-((19|20)\\d\\d))$";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    public final String value;
     public final LocalDate expiryDate;
     /**
      * represents the expiry date of member's membership
@@ -19,10 +21,8 @@ public class MembershipExpiryDate {
     public MembershipExpiryDate(LocalDate date, MembershipType type) {
         if (type.toString().equalsIgnoreCase("annual")) {
             this.expiryDate = date.plusYears(1);
-            this.value = date.plusYears(1).format(FORMATTER);
         } else {
             this.expiryDate = date.plusMonths(1);
-            this.value = date.plusMonths(1).format(FORMATTER);
         }
     }
 
@@ -30,7 +30,6 @@ public class MembershipExpiryDate {
      *
      */
     public MembershipExpiryDate(String date) {
-        this.value = date;
         this.expiryDate = LocalDate.parse(date, FORMATTER);
     }
 
@@ -38,7 +37,6 @@ public class MembershipExpiryDate {
      *
      */
     public MembershipExpiryDate(LocalDate date) {
-        this.value = date.format(FORMATTER);
         this.expiryDate = date;
     }
 
@@ -46,9 +44,16 @@ public class MembershipExpiryDate {
         return this.expiryDate;
     }
 
+    /**
+     * Returns true if a given string is a valid membership expiry date.
+     */
+    public static boolean isValidExpiryDate(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     @Override
     public String toString() {
-        return value;
+        return expiryDate.format(FORMATTER);
     }
     @Override
     public boolean equals(Object other) {
@@ -62,11 +67,11 @@ public class MembershipExpiryDate {
         }
 
         MembershipExpiryDate otherExpiryDate = (MembershipExpiryDate) other;
-        return this.value.equals(otherExpiryDate.value);
+        return this.expiryDate.equals(otherExpiryDate.expiryDate);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return expiryDate.hashCode();
     }
 }

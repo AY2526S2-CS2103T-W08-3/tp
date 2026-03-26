@@ -13,9 +13,14 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.person.AgeEqualsPredicate;
 import seedu.address.model.person.AgeGreaterThanPredicate;
 import seedu.address.model.person.AgeLessThanPredicate;
+import seedu.address.model.person.ExpiryDateAfterPredicate;
+import seedu.address.model.person.ExpiryDateBeforePredicate;
+import seedu.address.model.person.ExpiryDateEqualsPredicate;
 import seedu.address.model.person.GenderMatchesPredicate;
 import seedu.address.model.person.JoinDateAfterPredicate;
 import seedu.address.model.person.JoinDateBeforePredicate;
+import seedu.address.model.person.JoinDateEqualsPredicate;
+import seedu.address.model.person.MembershipExpiryDate;
 import seedu.address.model.person.MembershipJoinDate;
 import seedu.address.model.person.MembershipTypeMatchesPredicate;
 import seedu.address.model.person.StatusMatchesPredicate;
@@ -32,7 +37,7 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_multipleFilters_success() {
-        assertDoesNotThrow(() -> parser.parse(" age=/21 j>/01-01-2024"));
+        assertDoesNotThrow(() -> parser.parse(" age=/21 j>/01-01-2024 exp</01-01-2026"));
     }
 
     @Test
@@ -82,6 +87,30 @@ public class FilterCommandParserTest {
     }
 
     @Test
+    public void parse_expiryDateAfter_success() {
+        FilterCommand expectedCommand =
+                new FilterCommand(new ExpiryDateAfterPredicate(new seedu.address.model.person.MembershipExpiryDate(
+                        "01-01-2026").getExpiryDate()));
+        assertParseSuccess(parser, " exp>/01-01-2026", expectedCommand);
+    }
+
+    @Test
+    public void parse_expiryDateBefore_success() {
+        FilterCommand expectedCommand =
+                new FilterCommand(new ExpiryDateBeforePredicate(new seedu.address.model.person.MembershipExpiryDate(
+                        "01-01-2026").getExpiryDate()));
+        assertParseSuccess(parser, " exp</01-01-2026", expectedCommand);
+    }
+
+    @Test
+    public void parse_expiryDateEquals_success() {
+        FilterCommand expectedCommand =
+                new FilterCommand(new ExpiryDateEqualsPredicate(new seedu.address.model.person.MembershipExpiryDate(
+                        "01-01-2026").getExpiryDate()));
+        assertParseSuccess(parser, " exp=/01-01-2026", expectedCommand);
+    }
+
+    @Test
     public void parse_invalidAge_failure() {
         assertParseFailure(parser, " age=/abc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
@@ -108,6 +137,29 @@ public class FilterCommandParserTest {
     @Test
     public void parse_invalidJoinDate_failure() {
         assertParseFailure(parser, " j>/1990-01-01", MembershipJoinDate.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_emptyExpiryDate_failure() {
+        assertParseFailure(parser, " exp>/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_emptyExpiryDateBefore_failure() {
+        assertParseFailure(parser, " exp</",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_emptyExpiryDateEquals_failure() {
+        assertParseFailure(parser, " exp=/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidExpiryDate_failure() {
+        assertParseFailure(parser, " exp>/1990-01-01", MembershipExpiryDate.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -138,6 +190,25 @@ public class FilterCommandParserTest {
     public void parse_duplicatePrefix_failure() {
         assertParseFailure(parser, " age=/21 age=/22",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_AGE_EQUAL));
+    }
+
+    @Test
+    public void parse_emptyJoinDateBefore_failure() {
+        assertParseFailure(parser, " j</",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_joinDateEquals_success() {
+        FilterCommand expectedCommand =
+                new FilterCommand(new JoinDateEqualsPredicate(new MembershipJoinDate("01-01-2024").getDate()));
+        assertParseSuccess(parser, " j=/01-01-2024", expectedCommand);
+    }
+
+    @Test
+    public void parse_emptyJoinDateEquals_failure() {
+        assertParseFailure(parser, " j=/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
     @Test

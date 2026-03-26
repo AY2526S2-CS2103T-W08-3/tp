@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBERSTATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBERSHIP_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -25,7 +25,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.MemberId;
-import seedu.address.model.person.MemberStatus;
 import seedu.address.model.person.MembershipExpiryDate;
 import seedu.address.model.person.MembershipJoinDate;
 import seedu.address.model.person.MembershipType;
@@ -49,7 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_DATEOFBIRTH + "DATEOFBIRTH] "
-            + "[" + PREFIX_MEMBERSTATUS + "MEMBERSTATUS] "
+            + "[" + PREFIX_MEMBERSHIP_TYPE + "MEMBERSHIP_TYPE] "
             + "[" + PREFIX_EMERGENCY_CONTACT + "EMERGENCY_CONTACT] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -61,6 +60,8 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+    private Person originalPerson;
+    private Person editedPerson;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -84,15 +85,38 @@ public class EditCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Person updatedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!personToEdit.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        originalPerson = personToEdit;
+        editedPerson = updatedPerson;
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(updatedPerson)));
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+
+    @Override
+    public void undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (originalPerson == null || editedPerson == null) {
+            throw new CommandException("Unable to undo edit: missing original data.");
+        }
+
+        if (!model.hasPerson(editedPerson)) {
+            throw new CommandException("Unable to undo edit: edited person not found.");
+        }
+
+        model.setPerson(editedPerson, originalPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     /**
@@ -111,11 +135,11 @@ public class EditCommand extends Command {
         EmergencyContact updatedEmergencyContact = editPersonDescriptor.getEmergencyContact()
                                                                         .orElse(personToEdit.getEmergencyContact());
         MembershipType updatedType = editPersonDescriptor.getType().orElse(personToEdit.getMembershipType());
-        MembershipJoinDate updatedJoinDate = editPersonDescriptor.getJoinDate().orElse(personToEdit.getJoinDate());
+        MembershipJoinDate joinDate = personToEdit.getJoinDate();
         MembershipExpiryDate expiryDate = personToEdit.getExpiryDate();
 
         return new Person(memberId, updatedName, updatedPhone, updatedGender, updatedDateOfBirth, updatedEmail,
-                updatedEmergencyContact, updatedType, updatedJoinDate, expiryDate);
+                updatedEmergencyContact, updatedType, joinDate, expiryDate);
     }
 
     @Override
@@ -152,10 +176,8 @@ public class EditCommand extends Command {
         private Email email;
         private Gender gender;
         private DateOfBirth dateOfBirth;
-        private MemberStatus memberStatus;
         private EmergencyContact emergencyContact;
         private MembershipType type;
-        private MembershipJoinDate joinDate;
 
         public EditPersonDescriptor() {}
 
@@ -168,11 +190,9 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setGender(toCopy.gender);
             setDateOfBirth(toCopy.dateOfBirth);
-            setMemberStatus(toCopy.memberStatus);
             setEmail(toCopy.email);
             setEmergencyContact(toCopy.emergencyContact);
             setMembershipType(toCopy.type);
-            setJoinDate(toCopy.joinDate);
         }
 
         /**
@@ -180,7 +200,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
-                    name, phone, gender, dateOfBirth, email, emergencyContact, type, joinDate);
+                    name, phone, gender, dateOfBirth, email, emergencyContact, type);
         }
 
         public void setName(Name name) {
@@ -215,14 +235,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(dateOfBirth);
         }
 
-        public void setMemberStatus(MemberStatus memberStatus) {
-            this.memberStatus = memberStatus;
-        }
-
-        public Optional<MemberStatus> getMemberStatus() {
-            return Optional.ofNullable(memberStatus);
-        }
-
         public void setEmail(Email email) {
             this.email = email;
         }
@@ -247,14 +259,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(type);
         }
 
-        public void setJoinDate(MembershipJoinDate joinDate) {
-            this.joinDate = joinDate;
-        }
-
-        public Optional<MembershipJoinDate> getJoinDate() {
-            return Optional.ofNullable(joinDate);
-        }
-
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -271,7 +275,6 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(gender, otherEditPersonDescriptor.gender)
                     && Objects.equals(dateOfBirth, otherEditPersonDescriptor.dateOfBirth)
-                    && Objects.equals(memberStatus, otherEditPersonDescriptor.memberStatus)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(emergencyContact, otherEditPersonDescriptor.emergencyContact)
                     && Objects.equals(type, otherEditPersonDescriptor.type);
@@ -285,7 +288,6 @@ public class EditCommand extends Command {
                     .add("gender", gender)
                     .add("date of birth", dateOfBirth)
                     .add("type", type)
-                    .add("memberStatus", memberStatus)
                     .add("email", email)
                     .add("emergency contact", emergencyContact)
                     .toString();
