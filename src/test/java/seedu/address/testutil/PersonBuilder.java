@@ -126,6 +126,13 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
+    /**
+     * Sets the {@code MembershipJoinDate} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withJoinDate(String joinDate) {
+        this.joinDate = new MembershipJoinDate(joinDate);
+        return this;
+    }
 
     public Person build() {
         return new Person(id, name, phone, gender, dateOfBirth, email, emergencyContact, type, joinDate);

@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -24,5 +27,18 @@ public class DashboardStatsTest {
         list.add(new PersonBuilder().withType("monthly").build());
         assertEquals(2, DashboardStats.getAnnual(list));
         assertEquals(1, DashboardStats.getMonthly(list));
+    }
+    @Test
+    public void newMemberThisWeek_returnsCorrectCount() {
+        ObservableList<Person> list = FXCollections.observableArrayList();
+        String dayThisWeek = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        list.add(new PersonBuilder().withJoinDate(dayThisWeek).build());
+        assertEquals(1, DashboardStats.getNewMembers(list));
+    }
+    @Test
+    public void notNewMemberThisWeek_returnsCorrectCount() {
+        ObservableList<Person> list = FXCollections.observableArrayList();
+        list.add(new PersonBuilder().withJoinDate("11-03-2026").build());
+        assertEquals(0, DashboardStats.getNewMembers(list));
     }
 }
