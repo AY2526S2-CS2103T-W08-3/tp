@@ -43,6 +43,8 @@ public class RenewCommand extends Command {
 
     private final Index index;
     private final RenewPersonDescriptor renewPersonDescriptor;
+    private Person originalPerson;
+    private Person renewedPerson;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -70,8 +72,31 @@ public class RenewCommand extends Command {
 
         model.setPerson(personToRenew, renwedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        originalPerson = personToRenew;
+        renewedPerson = renwedPerson;
 
         return new CommandResult(String.format(MESSAGE_RENEW_PERSON_SUCCESS, Messages.format(renwedPerson)));
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+
+    @Override
+    public void undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (originalPerson == null || renewedPerson == null) {
+            throw new CommandException("Unable to undo renew: missing original data.");
+        }
+
+        if (!model.hasPerson(renewedPerson)) {
+            throw new CommandException("Unable to undo renew: renewed member not found.");
+        }
+
+        model.setPerson(renewedPerson, originalPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     /**
