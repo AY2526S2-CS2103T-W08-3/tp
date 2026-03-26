@@ -35,33 +35,16 @@ public class DashBoard extends UiPart<Region> {
         this.logic = logic;
         update();
     }
-    private void update() {
-        memberCount.textProperty().bind(
-                Bindings.size(logic.getAddressBook().getPersonList()).asString()
-        );
-        annualMembers.textProperty().bind(
-                Bindings.size(logic.getAddressBook().getPersonList().filtered(
-                        p -> p.getMembershipType().value.equalsIgnoreCase("annual"))).asString()
-        );
-        monthlyMembers.textProperty().bind(
-                Bindings.size(logic.getAddressBook().getPersonList().filtered(
-                        p -> p.getMembershipType().value.equalsIgnoreCase("monthly"))).asString()
-        );
-        expiringMemberships.textProperty().bind(
-                Bindings.size((logic.getAddressBook().getPersonList().filtered(
-                        p -> p.getExpiryDate().getExpiryDate()
-                                .isBefore(LocalDate.now().plusWeeks(1))
-                )).filtered(p -> p.getExpiryDate().getExpiryDate().isAfter(LocalDate.now()))
-                ).asString()
-        );
-        newMembers.textProperty().bind(
-                Bindings.concat("+",
-                        Bindings.size((logic.getAddressBook().getPersonList().filtered(
-                                        p -> p.getJoinDate().getDate()
-                                                .isAfter(LocalDate.now().minusWeeks(1))
-                                )).filtered(p -> p.getJoinDate().getDate().isBefore(LocalDate.now()))
-                        )
-                )
-        );
+
+    /**
+     * Updates the dashboard with member statistics when counts of relevant data has changed
+     */
+    public void update() {
+        var list = logic.getAddressBook().getPersonList();
+        memberCount.setText(String.valueOf(DashboardStats.getTotal(list)));
+        annualMembers.setText(String.valueOf(DashboardStats.getAnnual(list)));
+        monthlyMembers.setText(String.valueOf(DashboardStats.getMonthly(list)));
+        expiringMemberships.setText(String.valueOf(DashboardStats.getExpiring(list)));
+        newMembers.setText("+" + String.valueOf(DashboardStats.getNewMembers(list)));
     }
 }

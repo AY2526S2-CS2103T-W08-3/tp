@@ -62,6 +62,4 @@
             <Label styleClass="details-small-label" text="Monthly Memberships" />
         </VBox>
     </HBox>
-
-
 </VBox>
