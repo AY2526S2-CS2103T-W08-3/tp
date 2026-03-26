@@ -15,6 +15,7 @@ import seedu.address.model.person.AgeGreaterThanPredicate;
 import seedu.address.model.person.AgeLessThanPredicate;
 import seedu.address.model.person.ExpiryDateAfterPredicate;
 import seedu.address.model.person.ExpiryDateBeforePredicate;
+import seedu.address.model.person.ExpiryDateEqualsPredicate;
 import seedu.address.model.person.GenderMatchesPredicate;
 import seedu.address.model.person.JoinDateAfterPredicate;
 import seedu.address.model.person.JoinDateBeforePredicate;
@@ -101,6 +102,14 @@ public class FilterCommandParserTest {
     }
 
     @Test
+    public void parse_expiryDateEquals_success() {
+        FilterCommand expectedCommand =
+                new FilterCommand(new ExpiryDateEqualsPredicate(new seedu.address.model.person.MembershipExpiryDate(
+                        "01-01-2026").getExpiryDate()));
+        assertParseSuccess(parser, " exp=/01-01-2026", expectedCommand);
+    }
+
+    @Test
     public void parse_invalidAge_failure() {
         assertParseFailure(parser, " age=/abc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
@@ -132,6 +141,18 @@ public class FilterCommandParserTest {
     @Test
     public void parse_emptyExpiryDate_failure() {
         assertParseFailure(parser, " exp>/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_emptyExpiryDateBefore_failure() {
+        assertParseFailure(parser, " exp</",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_emptyExpiryDateEquals_failure() {
+        assertParseFailure(parser, " exp=/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 

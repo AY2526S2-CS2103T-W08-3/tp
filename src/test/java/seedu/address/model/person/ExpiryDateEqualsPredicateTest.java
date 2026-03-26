@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.PersonBuilder;
+
 public class ExpiryDateEqualsPredicateTest {
 
     @Test
@@ -25,5 +27,19 @@ public class ExpiryDateEqualsPredicateTest {
     public void toStringMethod() {
         ExpiryDateEqualsPredicate predicate = new ExpiryDateEqualsPredicate(LocalDate.of(2027, 3, 12));
         assertTrue(predicate.toString().contains("expiryDateEquals"));
+    }
+
+    @Test
+    public void test_expiryDateEquals_returnsTrue() {
+        Person person = new PersonBuilder().build();
+        ExpiryDateEqualsPredicate predicate = new ExpiryDateEqualsPredicate(LocalDate.of(2027, 3, 11));
+        assertTrue(predicate.test(person));
+    }
+
+    @Test
+    public void test_expiryDateEquals_returnsFalse() {
+        Person person = new PersonBuilder().build();
+        ExpiryDateEqualsPredicate predicate = new ExpiryDateEqualsPredicate(LocalDate.of(2027, 3, 10));
+        assertFalse(predicate.test(person));
     }
 }
