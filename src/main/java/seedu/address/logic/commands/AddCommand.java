@@ -42,6 +42,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
+    private Person addedPerson;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -61,7 +62,25 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        addedPerson = toAdd;
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+
+    @Override
+    public void undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (addedPerson == null || !model.hasPerson(addedPerson)) {
+            throw new CommandException("Unable to undo add: person not found.");
+        }
+
+        model.deletePerson(addedPerson);
+        GenerateMemberIds.decrementMaxId();
     }
 
     @Override
