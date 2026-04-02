@@ -69,6 +69,10 @@ public class PersonContainsKeywordsPredicateTest {
         predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("valid"));
         assertTrue(predicate.test(new PersonBuilder().build()));
 
+        // Membership remark match
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("morning"));
+        assertTrue(predicate.test(new PersonBuilder().withRemark("Prefers morning sessions").build()));
+
         // Case-insensitive match
         predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("AMY BEE"));
         assertTrue(predicate.test(new PersonBuilder().withName("Amy Bee").build()));
