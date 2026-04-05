@@ -108,7 +108,11 @@
       "title": "User Guide",
       "headings": {
         "fitdesk-user-guide": "FitDesk User Guide",
-        "quick-start": "Quick start",
+        "app-overview": "App Overview",
+        "supported-operating-systems": "Supported Operating Systems",
+        "quick-start": "Quick Start",
+        "setup-instructions": "Setup Instructions",
+        "using-the-application": "Using the Application",
         "features": "Features",
         "viewing-help-help": "Viewing help : help",
         "adding-a-member-add": "Adding a member: add",
