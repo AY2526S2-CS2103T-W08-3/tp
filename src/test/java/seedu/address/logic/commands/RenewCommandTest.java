@@ -81,6 +81,17 @@ public class RenewCommandTest {
     }
 
     @Test
+    public void execute_expiredRenewal_failure() {
+        Person expiredPerson = new PersonBuilder().withExpiryDate("01-01-2020").withType("Annual").build();
+        AddressBook addressBook = new AddressBook();
+        addressBook.addPerson(expiredPerson);
+        Model testModel = new ModelManager(addressBook, new UserPrefs());
+
+        RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_PERSON, new RenewPersonDescriptor());
+        assertCommandFailure(renewCommand, testModel, RenewCommand.MESSAGE_MEMBERSHIP_EXPIRED);
+    }
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         RenewPersonDescriptor descriptor = new RenewPersonDescriptorBuilder().withType(VALID_TYPE_BOB).build();

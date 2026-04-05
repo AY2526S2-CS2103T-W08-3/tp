@@ -41,6 +41,9 @@ public class RenewCommand extends Command {
 
     public static final String MESSAGE_RENEW_PERSON_SUCCESS = "Renewed Member: %1$s";
 
+    public static final String MESSAGE_MEMBERSHIP_EXPIRED =
+            "This membership has already expired. Renewal is not allowed; register as a new member using 'add'.";
+
     private final Index index;
     private final RenewPersonDescriptor renewPersonDescriptor;
     private Person originalPerson;
@@ -68,6 +71,11 @@ public class RenewCommand extends Command {
         }
 
         Person personToRenew = lastShownList.get(index.getZeroBased());
+        LocalDate expiry = personToRenew.getExpiryDate().getExpiryDate();
+        if (expiry.isBefore(LocalDate.now())) {
+            throw new CommandException(MESSAGE_MEMBERSHIP_EXPIRED);
+        }
+
         Person renwedPerson = createRenewedPerson(personToRenew, renewPersonDescriptor);
 
         model.setPerson(personToRenew, renwedPerson);
@@ -115,7 +123,7 @@ public class RenewCommand extends Command {
         EmergencyContact emergencyContact = personToRenew.getEmergencyContact();
         MembershipType updatedType = renewPersonDescriptor.getType().orElse(personToRenew.getMembershipType());
         MembershipJoinDate joinDate = personToRenew.getJoinDate();
-        //Extend membership from current expiry date
+        // Extend membership from current expiry date (execute() rejects if already expired).
         LocalDate currentExpiry = personToRenew.getExpiryDate().getExpiryDate();
         LocalDate newExpiry;
         if (updatedType.toString().equalsIgnoreCase("annual")) {
