@@ -119,7 +119,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (argMultimap.getValue(PREFIX_AGE_EQUAL).isPresent()) {
                 int otherAge = parseAge(argMultimap.getValue(PREFIX_AGE_EQUAL).get());
                 if (otherAge != age) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
+                            , FilterCommand.MESSAGE_USAGE));
                 }
                 age -= 1; // Adjust age for greater than or equal to
             }
@@ -131,7 +132,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (argMultimap.getValue(PREFIX_AGE_EQUAL).isPresent()) {
                 int otherAge = parseAge(argMultimap.getValue(PREFIX_AGE_EQUAL).get());
                 if (otherAge != age) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
+                            , FilterCommand.MESSAGE_USAGE));
                 }
                 age += 1; // Adjust age for less than or equal to
             }
@@ -151,9 +153,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 String otherJoinDate = argMultimap.getValue(PREFIX_JOIN_DATE_EQUALS).get().trim();
                 verifyJoinDate(otherJoinDate);
                 if (!joinDate.equals(otherJoinDate)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
+                            , FilterCommand.MESSAGE_USAGE));
                 }
-                predicates.add(new JoinDateAfterPredicate(ParserUtil.parseJoinDate(joinDate).getDate().minusDays(1)));
+                predicates.add(new JoinDateAfterPredicate(ParserUtil.parseJoinDate(joinDate)
+                        .getDate().minusDays(1)));
             } else {
                 predicates.add(new JoinDateAfterPredicate(ParserUtil.parseJoinDate(joinDate).getDate()));
             }
@@ -166,9 +170,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 String otherJoinDate = argMultimap.getValue(PREFIX_JOIN_DATE_EQUALS).get().trim();
                 verifyJoinDate(otherJoinDate);
                 if (!joinDate.equals(otherJoinDate)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
+                            , FilterCommand.MESSAGE_USAGE));
                 }
-                predicates.add(new JoinDateBeforePredicate(ParserUtil.parseJoinDate(joinDate).getDate().plusDays(1)));
+                predicates.add(new JoinDateBeforePredicate(ParserUtil.parseJoinDate(joinDate)
+                        .getDate().plusDays(1)));
             } else {
                 predicates.add(new JoinDateBeforePredicate(ParserUtil.parseJoinDate(joinDate).getDate()));
             }
@@ -188,7 +194,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 String otherExpiryDate = argMultimap.getValue(PREFIX_EXPIRY_DATE_EQUALS).get().trim();
                 verifyExpiryDate(otherExpiryDate);
                 if (!expiryDate.equals(otherExpiryDate)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
+                            , FilterCommand.MESSAGE_USAGE));
                 }
                 predicates.add(new ExpiryDateAfterPredicate(ParserUtil.parseExpiryDate(expiryDate)
                                                                 .getExpiryDate().minusDays(1)));
