@@ -295,6 +295,12 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+Example:
+* `clear`
+![before clear](images/screenshots/clear_1.png)
+![after clear](images/screenshots/clear_2.png)
+The member list is empty after `clear`
+
 
 ### Undoing the last command : `undo`
 
@@ -306,7 +312,7 @@ Example:
 * `delete 4` followed by `undo`
 ![before undo](images/screenshots/undo_1.png)
 ![after undo](images/screenshots/undo_2.png)
-The deleted member is restored after undo
+The deleted member is restored after `undo`
 
 
 ### Navigating command history
