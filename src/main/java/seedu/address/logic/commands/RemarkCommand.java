@@ -77,7 +77,7 @@ public class RemarkCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         originalPerson = personToEdit;
         this.editedPerson = editedPerson;
-        
+
         String message = remark.value.isEmpty() ? MESSAGE_DELETE_REMARK_SUCCESS : MESSAGE_ADD_REMARK_SUCCESS;
         return new CommandResult(String.format(message, Messages.format(editedPerson)), editedPerson);
     }
