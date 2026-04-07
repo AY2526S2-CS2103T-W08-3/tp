@@ -222,6 +222,7 @@ Example:
   ![list](images/screenshots/delete_1.png)
   2. `delete 2` 
   ![deleted member](images/screenshots/delete_2.png)
+  The 2nd member is deleted from the list
 
 
 ### Renewing a membership: `renew`
@@ -256,9 +257,9 @@ Format: `remark INDEX r/[REMARK]`
 * Providing an empty remark (i.e. `r/` with nothing after it) removes the remark from the member.
 
 Examples:
-* `remark 1 r/Likes to swim`
+* `remark 1 r/likes swimming`
   ![remark added](images/screenshots/remark_1.png)
-  Remark `Likes to swim` is added to the 1st member.
+  Remark `likes swimming` is added to the 1st member.
 
 
 ### Viewing the details of a person : `details`
@@ -274,16 +275,11 @@ Format: `details INDEX`
 Examples:
 * `list` followed by `details 1` shows the details of the 1st member in the address book.
   1. `list`
-    
-        ![list of members](images/screenshots/details_list1.png)
-  
+  ![list of members](images/screenshots/details_list1.png)
   2. `details 1`
-  
-        ![details of 1st member](images/screenshots/details_1.png)
-
+  ![details of 1st member](images/screenshots/details_1.png)
 * `find David` followed by `details 1` shows the details of the 1st member in the results of the `find` command.
-
-  ![details of 1st member in find results](images/screenshots/details_2.png)
+![details of 1st member in find results](images/screenshots/details_2.png)
 
 
 ### Clearing all entries : `clear`
