@@ -324,8 +324,11 @@ Allows you to quickly re-use previously entered commands using the arrow keys in
 * The cursor will be placed at the end of the text after navigating.
 * Pressing `Down` past the most recent command clears the command box.
 
-![navigating to previous command](images/screenshots/command_history_down.png)
-![navigating to next command](images/screenshots/command_history_up.png)
+Example:
+* `find alex` followed by `Up` arrow key
+![before command history up](images/screenshots/command_history_1.png)
+![after command history up](images/screenshots/command_history_2.png)
+The previous command `find alex` is shown in the command box
 
 
 ### Exiting the program : `exit`
