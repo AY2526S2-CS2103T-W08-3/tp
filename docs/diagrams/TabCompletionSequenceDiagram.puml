@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+skinparam sequenceMessageAlign center
+
+Actor User as user
+participant ":CommandBox" as CB
+participant ":TabCompleter" as TC
+
+user -> CB : key Tab\n(after typing "filter ")
+activate CB
+CB -> TC : getCompletionCandidates(currentText)
+activate TC
+TC --> CB : list of full-line\nreplacement strings
+deactivate TC
+CB --> user : replace field text\nwith next candidate
+deactivate CB
+@enduml

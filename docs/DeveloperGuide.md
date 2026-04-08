@@ -287,12 +287,6 @@ The following sequence diagram illustrates a `Tab` press when the user has typed
 
 <puml src="diagrams/TabCompletionSequenceDiagram.puml" alt="Tab completion sequence diagram" />
 
-<box type="info" seamless>
-
-**Note:** The sequence diagram is a placeholder — the `.puml` file is to be added.
-
-</box>
-
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
