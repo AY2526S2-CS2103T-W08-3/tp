@@ -65,6 +65,20 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Focuses the command box and appends the given character.
+     * Used to redirect keypresses from elsewhere in the window.
+     */
+    public void focusAndType(String character) {
+        commandTextField.requestFocus();
+        commandTextField.appendText(character);
+        commandTextField.positionCaret(commandTextField.getText().length());
+    }
+
+    public boolean isFocused() {
+        return commandTextField.isFocused();
+    }
+
+    /**
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {

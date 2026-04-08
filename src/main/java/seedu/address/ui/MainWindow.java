@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private DashBoard dashBoard;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -140,8 +141,20 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        getRoot().addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (commandBox.isFocused()) {
+                return;
+            }
+            String character = event.getCharacter();
+            if (character.isEmpty() || character.charAt(0) < 32 || character.charAt(0) == 127) {
+                return;
+            }
+            commandBox.focusAndType(character);
+            event.consume();
+        });
     }
 
     /**
