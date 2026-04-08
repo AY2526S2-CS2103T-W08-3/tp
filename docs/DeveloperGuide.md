@@ -351,6 +351,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `FitDesk` and the **Actor** is the `Receptionist`, unless specified otherwise)
 
+
 **Use case: UC01 - Add Member**
 
 **MSS**
@@ -368,6 +369,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1.FitDesk shows an error message.
 
       Use case resumes at step 2.
+
 
 **Use case: UC02 - Delete Member**
 
@@ -392,6 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+
 **Use case: UC03 - Find Member**
 
 **MSS**
@@ -414,6 +417,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. FitDesk shows an empty list.
 
       Use case ends.
+
 
 **Use case: UC04 - Edit Member**
 
@@ -443,6 +447,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+
 **Use case: UC05 - Filter Member List by Status**
 
 **MSS**
@@ -460,14 +465,100 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+
 **Use case: UC06 - View Details of a Specific Member**
+
+**MSS**
+
+1. Receptionist requests to list members
+2. FitDesk shows a list of members
+3. Receptionist requests to view the details of a specific member
+4. FitDesk displays the full details of the selected member
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. FitDesk shows an error message.
+
+      Use case resumes at step 2.
+
 
 **Use case: UC07 - Add a Remark to a Member**
 
+**MSS**
+
+1. Receptionist requests to list members
+2. FitDesk shows a list of members
+3. Receptionist requests to add or edit a remark for a specific member
+4. FitDesk updates the remark for the member and confirms the update
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. FitDesk shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. Receptionist provides an empty remark (i.e. `r/` with nothing after it).
+    * 3b1. FitDesk removes the existing remark from the member.
+
+      Use case ends.
+
+
 **Use case: UC08 - Undo a Command**
+
+**MSS**
+
+1. Receptionist executes a command that modifies data (e.g. `add`, `edit`, `delete`, `clear`)
+2. Receptionist requests to undo the last command
+3. FitDesk reverts the most recent change and confirms the undo
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. There is no undoable command in history.
+    * 2a1. FitDesk shows an error message indicating nothing to undo.
+
+      Use case ends.
 
 
 **Use case: UC09 - Access Command History**
+
+**MSS**
+
+1. Receptionist has previously entered one or more commands
+2. Receptionist presses the `Up` arrow key in the command box
+3. FitDesk displays the most recently entered command in the command box
+4. Receptionist presses `Up` or `Down` to navigate through command history
+5. Receptionist presses `Enter` to re-execute the selected command
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. There is no command history.
+    * 2a1. FitDesk does not change the command box.
+
+      Use case ends.
+
+* 4a. Receptionist presses `Down` past the most recent command.
+    * 4a1. FitDesk clears the command box.
+
+      Use case ends.
+
 
 **Use case: UC10 - Renew a Member's Membership**
 
@@ -499,7 +590,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 5.
 
-*{More to be added}*
 
 ### Non-Functional Requirements
 
@@ -512,7 +602,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 7. The system is not required to support more than one user at a time.
 8. The product is not required to support multi-branch gym operations.
 
-*{More to be added}*
 
 ### Glossary
 
