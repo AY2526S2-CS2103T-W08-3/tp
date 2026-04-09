@@ -43,7 +43,8 @@ public class RenewCommand extends Command {
     public static final String MESSAGE_RENEW_PERSON_SUCCESS = "Renewed Member: %1$s";
 
     public static final String MESSAGE_MEMBERSHIP_EXPIRED =
-            "This membership has already expired. Renewal is not allowed; register as a new member using 'add'.";
+            "This membership has already expired. Renewal is not allowed."
+            + " To re-register, delete this member first using 'delete', then add them again using 'add'.";
 
     private final Index index;
     private final RenewPersonDescriptor renewPersonDescriptor;
