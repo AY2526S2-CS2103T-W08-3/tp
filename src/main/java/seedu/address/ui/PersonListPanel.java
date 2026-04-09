@@ -33,12 +33,12 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        Rectangle clip = new Rectangle();
+        Rectangle clip = new Rectangle(personListView.getHeight(), personListView.getWidth());
         clip.widthProperty().bind(personListView.widthProperty());
-        clip.heightProperty().bind(personListView.heightProperty());
+        clip.heightProperty().bind(personListView.heightProperty().add(20));
         clip.setArcWidth(20);
         clip.setArcHeight(20);
-        clip.setY(personListView.getHeight() - 20);
+        clip.setY(-20);
         personListView.setClip(clip);
 
         personListView.setOnKeyPressed(event -> {
