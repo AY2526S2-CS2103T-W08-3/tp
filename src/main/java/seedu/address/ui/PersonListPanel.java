@@ -11,6 +11,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
@@ -31,6 +33,13 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(personListView.widthProperty());
+        clip.heightProperty().bind(personListView.heightProperty());
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+        clip.setY(personListView.getHeight() - 20);
+        personListView.setClip(clip);
 
         personListView.setOnKeyPressed(event -> {
             KeyCode mapped = null;
