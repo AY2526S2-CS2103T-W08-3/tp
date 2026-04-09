@@ -34,15 +34,6 @@ public class AddCommand extends Command {
             + PREFIX_EMERGENCY_CONTACT + "EMERGENCY_CONTACT "
             + "[" + PREFIX_JOIN_DATE + "JOIN_DATE] "
             + PREFIX_MEMBERSHIP_TYPE + "MEMBERSHIP_TYPE "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_GENDER + "M "
-            + PREFIX_DATEOFBIRTH + "02-02-2002 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_EMERGENCY_CONTACT + "93110225 "
-            + PREFIX_JOIN_DATE + "01-01-2024 "
-            + PREFIX_MEMBERSHIP_TYPE + "monthly";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_FIELDS = "%1$s already existed in the address book.";
