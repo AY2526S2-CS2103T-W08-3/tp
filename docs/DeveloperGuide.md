@@ -404,7 +404,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  Receptionist requests to find members by keyword(s)
-2.  FitDesk searches for members whose names contain any of the given keywords
+2.  FitDesk searches for members whose field contains the given keyword substring
 3.  FitDesk shows a list of matching members
 
     Use case ends.
