@@ -62,7 +62,7 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
     ```bash
        help
     ```
-   This will open the user guide in the default browser, if your does not support it a help window will open.
+   This will open the user guide in the default browser, if your OS does not support it a help window will open.
    > 💡 **Tip:** 
    > 
     >- Use the **Up** and **Down** arrow keys to cycle through previously entered commands.
@@ -225,7 +225,7 @@ Finds members whose fields contain the search query as a substring.
 Format: `find QUERY`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
-* Only some text-based fields are searched: name, phone, email, emergency contact, membership type.
+* Only some text-based fields are searched: name, phone, email, emergency contact, membership type, member ID, and remark.
 * Can take any input as the query, including special characters and spaces.
 * The entire query is matched as a literal substring against each field.
   e.g. `find john doe` will only return members whose field contains `"john doe"`, not members with just `john` or just `doe`
@@ -244,7 +244,7 @@ Examples:
 
 Filters member list and displays members who have fields matching the given attribute.
 
-Format: `filter [s/STATUS] [g/GENDER] [m/MEMBERSHIP_TYPE] [age>/AGE] [age</AGE] [age=/AGE] [j>/DATE] [j</DATE] [exp>/DATE] [exp</DATE] [exp=/DATE]`
+Format: `filter [s/STATUS] [g/GENDER] [m/MEMBERSHIP_TYPE] [age>/AGE] [age</AGE] [age=/AGE] [j>/DATE] [j</DATE] [j=/DATE] [exp>/DATE] [exp</DATE] [exp=/DATE]`
 
 * Each prefix may only be specified once. Specifying the same prefix more than once is an error.
 * For each date/age field, operators may be combined as follows:
@@ -427,6 +427,7 @@ Furthermore, certain edits can cause FitDesk to behave in unexpected ways (e.g.,
 ### Navigating command history
 
 Allows you to quickly re-use previously entered commands using the arrow keys in the command box.
+**Incorrect commands are not saved in the command history**
 
 * Press the `Up` arrow key to navigate to the previous command in history.
 * Press the `Down` arrow key to navigate to the next command in history.
@@ -501,12 +502,14 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [g/GENDER] [d/DATE_OF_BIRTH] [e/EMAIL] [ec/EMERGENCY_CONTACT] ​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find**   | `find KEYWORDS `<br> e.g., `find James Jake`
 **Filter**   | `filter [s/STATUS] [g/GENDER] [m/MEMBERSHIP_TYPE] [age>/AGE] [age</AGE] [age=/AGE] [j>/DATE] [j</DATE] [exp>/DATE] [exp</DATE] [exp=/DATE]`<br> e.g., `filter s/valid g/M`
 **Remark**  | `remark INDEX r/[REMARK]`<br> e.g., `remark 1 r/Likes to swim.`
-**Renew**   | `renew INDEX [m/MEMBERSHIP_TYPE] ]`<br> e.g., `renew 2 m/monthly`
+**Renew**   | `renew INDEX [m/MEMBERSHIP_TYPE] `<br> e.g., `renew 2 m/monthly`
 **Details**   | `details INDEX`<br> e.g., `details 1`
 **List**   | `list`
 **Undo**   | `undo`
 **Redo**   | `redo`
 **Help**   | `help`
+**Exit**   | `exit`
+
