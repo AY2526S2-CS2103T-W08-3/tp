@@ -476,7 +476,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [g/GENDER] [d/DATE_OF_BIRTH] [j/JOIN_DATE] [e/EMAIL] [ec/EMERGENCY_CONTACT] ​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find**   | `find KEYWORDS `<br> e.g., `find James Jake`
 **Filter**   | `filter [s/STATUS] [g/GENDER] [m/MEMBERSHIP_TYPE] [age>/AGE] [age</AGE] [age=/AGE] [j>/DATE] [j</DATE] [exp>/DATE] [exp</DATE] [exp=/DATE]`<br> e.g., `filter s/valid g/M`
 **Remark**  | `remark INDEX r/[REMARK]`<br> e.g., `remark 1 r/Likes to swim.`
 **Renew**   | `renew INDEX [m/MEMBERSHIP_TYPE] ]`<br> e.g., `renew 2 m/monthly`
