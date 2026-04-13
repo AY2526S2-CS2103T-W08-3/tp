@@ -20,6 +20,7 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RenewCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -59,6 +60,7 @@ public class TabCompleter {
                 FindCommand.COMMAND_WORD,
                 HelpCommand.COMMAND_WORD,
                 ListCommand.COMMAND_WORD,
+                RedoCommand.COMMAND_WORD,
                 RemarkCommand.COMMAND_WORD,
                 RenewCommand.COMMAND_WORD,
                 UndoCommand.COMMAND_WORD
