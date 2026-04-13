@@ -123,7 +123,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="800" />
 
 
 The `Model` component,
@@ -137,7 +137,7 @@ The `Model` component,
 
 **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+<puml src="diagrams/BetterModelClassDiagram.puml" width="700" />
 
 </box>
 
@@ -308,7 +308,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |----------|---------|--------------------------------------------------------------------|------------------------------------------------------|
 | `* * *`  | user    | view all members                                                   | browse the database                                  |
 | `* * *`  | user    | add a new member                                                   | register new members to the database                 |
-| `* * *`  | user    | delete a member                                                    | remove inactive records                              |
+| `* * *`  | user    | delete a member                                                    | remove invalid records                               |
 | `* * *`  | user    | view full details of a member                                      | manage members' accounts effectively                 |
 | `* * *`  | user    | find members by name                                               | locate details without going through the entire list |
 | `* *`    | user    | edit a member's details                                            | keep member records updated                          |
@@ -428,7 +428,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Receptionist requests to filter members by status (Active/Invalid)
+1.  Receptionist requests to filter members by status (Valid/Invalid)
 2.  FitDesk filters member list by specified status
 3.  FitDesk displays filtered member list
 
@@ -602,7 +602,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, macOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Member**: A registered gym patron whose details are stored and managed in FitDesk
-* **Membership status**: The current standing of a member's membership, which can be one of the following — active or invalid
+* **Membership status**: The current standing of a member's membership, which can be one of the following — valid or invalid
 * **Emergency contact**: A person designated by the member to be contacted in the event of a medical or safety emergency
 
 --------------------------------------------------------------------------------------------------------------------
@@ -656,7 +656,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a person after filtering the list
 
-   1. Prerequisites: Use the `filter` command (e.g. `filter s/active`) to show a subset of members. At least one member in the filtered list.
+   1. Prerequisites: Use the `filter` command (e.g. `filter s/valid`) to show a subset of members. At least one member in the filtered list.
 
    1. Test case: `delete 1`<br>
       Expected: First member in the *filtered* list is deleted. The filtered view is refreshed. Details of the deleted member shown in the status message.
