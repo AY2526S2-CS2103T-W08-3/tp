@@ -18,7 +18,7 @@
         </columnConstraints>
         <VBox alignment="CENTER" minHeight="375" prefHeight="500" GridPane.columnIndex="0">
             <padding>
-                <Insets bottom="5" left="5" right="5" top="-30" />
+                <Insets bottom="5" left="5" right="5" top="5" />
             </padding>
             <Label fx:id="name" alignment="CENTER" styleClass="details-name-label" text="\$name" wrapText="true" />
             <HBox spacing="10" alignment="CENTER">
