@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBERSHIP_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBERSTATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_BOB = "Monthly";
     public static final String VALID_JOIN_DATE_AMY = "01-01-2024";
     public static final String VALID_JOIN_DATE_BOB = "03-03-2024";
+    public static final String VALID_REMARK_AMY = "Prefers morning sessions";
+    public static final String VALID_REMARK_BOB = "Has a knee injury";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -70,6 +73,8 @@ public class CommandTestUtil {
     public static final String TYPE_DESC_BOB = " " + PREFIX_MEMBERSHIP_TYPE + VALID_TYPE_BOB;
     public static final String JOIN_DATE_DESC_AMY = " " + PREFIX_JOIN_DATE + VALID_JOIN_DATE_AMY;
     public static final String JOIN_DATE_DESC_BOB = " " + PREFIX_JOIN_DATE + VALID_JOIN_DATE_BOB;
+    public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
+    public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

@@ -25,6 +25,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATEOFBIRTH_BOB;
@@ -34,6 +35,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOIN_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -64,6 +66,7 @@ import seedu.address.model.person.MembershipType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -102,6 +105,21 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + TYPE_DESC_BOB + GENDER_DESC_BOB + DATEOFBIRTH_DESC_BOB
                 + EMERGENCY_CONTACT_DESC_BOB + JOIN_DATE_DESC_BOB, new AddCommand(expectedPerson));
+    }
+
+    @Test
+    public void parse_optionalRemarkPresent_success() {
+        MemberId testId1 = new MemberId(1);
+        MembershipJoinDate joinDate = new MembershipJoinDate();
+        MembershipExpiryDate expiryDate =
+                new MembershipExpiryDate(joinDate.getDate(), new MembershipType(VALID_TYPE_BOB));
+        Person expectedPerson = new Person(testId1, BOB.getName(), BOB.getPhone(), BOB.getGender(),
+                BOB.getDateOfBirth(), BOB.getEmail(), BOB.getEmergencyContact(), BOB.getMembershipType(),
+                joinDate, expiryDate, new Remark(VALID_REMARK_BOB));
+
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + TYPE_DESC_BOB + GENDER_DESC_BOB + DATEOFBIRTH_DESC_BOB
+                + EMERGENCY_CONTACT_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedPerson));
     }
 
     @Test

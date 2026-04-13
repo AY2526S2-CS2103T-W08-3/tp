@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBERSHIP_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.stream.Stream;
 
@@ -26,6 +27,7 @@ import seedu.address.model.person.MembershipType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -39,7 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_GENDER, PREFIX_DATEOFBIRTH,
-                        PREFIX_EMAIL, PREFIX_EMERGENCY_CONTACT, PREFIX_MEMBERSHIP_TYPE, PREFIX_JOIN_DATE);
+                        PREFIX_EMAIL, PREFIX_EMERGENCY_CONTACT, PREFIX_MEMBERSHIP_TYPE, PREFIX_JOIN_DATE,
+                        PREFIX_REMARK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_GENDER, PREFIX_DATEOFBIRTH,
                 PREFIX_EMAIL, PREFIX_EMERGENCY_CONTACT, PREFIX_MEMBERSHIP_TYPE)
@@ -48,7 +51,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_GENDER, PREFIX_DATEOFBIRTH,
-                PREFIX_EMAIL, PREFIX_EMERGENCY_CONTACT, PREFIX_MEMBERSHIP_TYPE, PREFIX_JOIN_DATE);
+                PREFIX_EMAIL, PREFIX_EMERGENCY_CONTACT, PREFIX_MEMBERSHIP_TYPE, PREFIX_JOIN_DATE, PREFIX_REMARK);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
@@ -60,12 +63,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         MembershipJoinDate joinDate = argMultimap.getValue(PREFIX_JOIN_DATE).isPresent()
                 ? ParserUtil.parseJoinDate(argMultimap.getValue(PREFIX_JOIN_DATE).get())
                 : new MembershipJoinDate();
+        Remark remark = new Remark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
         MemberId memberId = GenerateMemberIds.generateNextId();
         MembershipExpiryDate expiryDate = new MembershipExpiryDate(joinDate.getDate(), membershipType);
         Person person;
         try {
             person = new Person(memberId, name, phone, gender, dateOfBirth, email, emergencyContact,
-                    membershipType, joinDate, expiryDate);
+                    membershipType, joinDate, expiryDate, remark);
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage(), e);
         }

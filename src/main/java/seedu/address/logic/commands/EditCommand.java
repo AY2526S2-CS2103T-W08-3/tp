@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -48,7 +49,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_DATEOFBIRTH + "DATEOFBIRTH] "
-            + "[" + PREFIX_EMERGENCY_CONTACT + "EMERGENCY_CONTACT] \n"
+            + "[" + PREFIX_EMERGENCY_CONTACT + "EMERGENCY_CONTACT] "
+            + "[" + PREFIX_REMARK + "REMARK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -194,7 +196,7 @@ public class EditCommand extends Command {
                                                                         .orElse(personToEdit.getEmergencyContact());
         MembershipJoinDate joinDate = personToEdit.getJoinDate();
         MembershipExpiryDate expiryDate = personToEdit.getExpiryDate();
-        Remark remark = personToEdit.getRemark();
+        Remark remark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
 
         if (joinDate.getDate().isBefore(updatedDateOfBirth.getDate())) {
             throw new CommandException(Person.MESSAGE_CONSTRAINTS);
@@ -239,6 +241,7 @@ public class EditCommand extends Command {
         private Gender gender;
         private DateOfBirth dateOfBirth;
         private EmergencyContact emergencyContact;
+        private Remark remark;
 
         public EditPersonDescriptor() {}
 
@@ -253,6 +256,7 @@ public class EditCommand extends Command {
             setDateOfBirth(toCopy.dateOfBirth);
             setEmail(toCopy.email);
             setEmergencyContact(toCopy.emergencyContact);
+            setRemark(toCopy.remark);
         }
 
         /**
@@ -260,7 +264,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
-                    name, phone, gender, dateOfBirth, email, emergencyContact);
+                    name, phone, gender, dateOfBirth, email, emergencyContact, remark);
         }
 
         public void setName(Name name) {
@@ -311,6 +315,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(emergencyContact);
         }
 
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -328,7 +340,8 @@ public class EditCommand extends Command {
                     && Objects.equals(gender, otherEditPersonDescriptor.gender)
                     && Objects.equals(dateOfBirth, otherEditPersonDescriptor.dateOfBirth)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(emergencyContact, otherEditPersonDescriptor.emergencyContact);
+                    && Objects.equals(emergencyContact, otherEditPersonDescriptor.emergencyContact)
+                    && Objects.equals(remark, otherEditPersonDescriptor.remark);
         }
 
         @Override
@@ -340,6 +353,7 @@ public class EditCommand extends Command {
                     .add("date of birth", dateOfBirth)
                     .add("email", email)
                     .add("emergency contact", emergencyContact)
+                    .add("remark", remark)
                     .toString();
         }
     }
