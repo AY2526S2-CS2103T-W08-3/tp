@@ -23,7 +23,7 @@ public class TabCompleterTest {
     @Test
     public void getCompletions_emptyInput_allCommands() {
         List<String> results = tabCompleter.getCompletions("");
-        assertEquals(13, results.size());
+        assertEquals(14, results.size());
         assertTrue(results.contains("add"));
         assertTrue(results.contains("filter"));
     }
