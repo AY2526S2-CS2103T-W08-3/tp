@@ -99,6 +99,19 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
+    public void toModelType_invalidMemberId_throwsIllegalValueException() {
+        JsonAdaptedPerson json = new JsonAdaptedPerson("BAD", VALID_NAME, VALID_PHONE, VALID_GENDER, VALID_DOB,
+                VALID_EMAIL, VALID_EC, "Annual", "11-03-2026", "11-03-2027", "");
+        assertThrows(IllegalValueException.class, "MemberId should be in the format M###.", json::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidJoinDate_throwsIllegalValueException() {
+        JsonAdaptedPerson json = personWith("Annual", "not-a-date", "11-03-2027");
+        assertThrows(IllegalValueException.class, MembershipJoinDate.MESSAGE_CONSTRAINTS, json::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidGender_throwsGenderConstraintsMessage() {
         JsonAdaptedPerson json = new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_PHONE, "Y", VALID_DOB,
                 VALID_EMAIL, VALID_EC, "Annual", "11-03-2026", "11-03-2027", "");

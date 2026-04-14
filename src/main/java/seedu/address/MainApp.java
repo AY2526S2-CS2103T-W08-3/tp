@@ -59,13 +59,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
-
-        model = initModelManager(storage, userPrefs);
-
-        logic = createLogic(model, storage);
-
-        ui = createUi(logic, addressBookLoadFailureMessage);
+        initModelLogicAndUi(addressBookStorage, userPrefsStorage, userPrefs);
     }
 
     /**
@@ -115,6 +109,14 @@ public class MainApp extends Application {
 
     protected String getAddressBookLoadFailureMessage() {
         return addressBookLoadFailureMessage;
+    }
+
+    protected void initModelLogicAndUi(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                                       UserPrefs userPrefs) {
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        model = initModelManager(storage, userPrefs);
+        logic = createLogic(model, storage);
+        ui = createUi(logic, addressBookLoadFailureMessage);
     }
 
     protected Logic createLogic(Model model, Storage storage) {

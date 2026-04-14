@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -295,6 +296,37 @@ public class MainAppTest {
         assertEquals(mainApp.getAddressBookLoadFailureMessage(), field.get(ui));
     }
 
+    @Test
+    public void initModelLogicAndUi_setsModelLogicAndUiFromFactoryMethods() {
+        TestMainApp mainApp = new TestMainApp();
+        UserPrefs userPrefs = new UserPrefs();
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(Path.of("model-logic-ui.json"));
+        UserPrefsStorageStub userPrefsStorage = new UserPrefsStorageStub(Path.of("prefs.json"));
+
+        mainApp.initModelLogicAndUi(addressBookStorage, userPrefsStorage, userPrefs);
+
+        assertEquals(mainApp.modelToReturn, mainApp.model);
+        assertEquals(mainApp.logicToReturn, mainApp.logic);
+        assertEquals(mainApp.uiToReturn, mainApp.ui);
+        assertTrue(mainApp.storage instanceof StorageManager);
+        assertEquals(mainApp.modelToReturn, mainApp.modelPassedToCreateLogic);
+        assertEquals(mainApp.storage, mainApp.storagePassedToCreateLogic);
+        assertEquals(mainApp.logicToReturn, mainApp.logicPassedToCreateUi);
+        assertNull(mainApp.messagePassedToCreateUi);
+    }
+
+    @Test
+    public void initModelLogicAndUi_passesLoadFailureMessageToCreateUi() {
+        TestMainApp mainApp = new TestMainApp();
+        mainApp.loadFailureMessageToSet = "startup warning";
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(Path.of("warning-ui.json"));
+        UserPrefsStorageStub userPrefsStorage = new UserPrefsStorageStub(Path.of("prefs.json"));
+
+        mainApp.initModelLogicAndUi(addressBookStorage, userPrefsStorage, new UserPrefs());
+
+        assertEquals("startup warning", mainApp.messagePassedToCreateUi);
+    }
+
     private static Map<String, String> invalidFieldValues() {
         return Map.ofEntries(
                 Map.entry("name", "\"\""),
@@ -380,6 +412,177 @@ public class MainAppTest {
         @Override
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
             saveAddressBook(addressBook);
+        }
+    }
+
+    private static class UserPrefsStorageStub implements seedu.address.storage.UserPrefsStorage {
+        private final Path filePath;
+
+        UserPrefsStorageStub(Path filePath) {
+            this.filePath = filePath;
+        }
+
+        @Override
+        public Path getUserPrefsFilePath() {
+            return filePath;
+        }
+
+        @Override
+        public Optional<UserPrefs> readUserPrefs() {
+            return Optional.empty();
+        }
+
+        @Override
+        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) {}
+    }
+
+    private static class TestMainApp extends MainApp {
+        private final Model modelToReturn = new ModelStub();
+        private final Logic logicToReturn = new LogicStub();
+        private final Ui uiToReturn = new UiStub();
+        private Model modelPassedToCreateLogic;
+        private Storage storagePassedToCreateLogic;
+        private Logic logicPassedToCreateUi;
+        private String messagePassedToCreateUi;
+        private String loadFailureMessageToSet;
+
+        @Override
+        protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+            try {
+                Field field = MainApp.class.getDeclaredField("addressBookLoadFailureMessage");
+                field.setAccessible(true);
+                field.set(this, loadFailureMessageToSet);
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError(e);
+            }
+            return modelToReturn;
+        }
+
+        @Override
+        protected Logic createLogic(Model model, Storage storage) {
+            modelPassedToCreateLogic = model;
+            storagePassedToCreateLogic = storage;
+            return logicToReturn;
+        }
+
+        @Override
+        protected Ui createUi(Logic logic, String startupWarningMessage) {
+            logicPassedToCreateUi = logic;
+            messagePassedToCreateUi = startupWarningMessage;
+            return uiToReturn;
+        }
+    }
+
+    private static class ModelStub implements Model {
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public UserPrefs getUserPrefs() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public seedu.address.commons.core.GuiSettings getGuiSettings() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setGuiSettings(seedu.address.commons.core.GuiSettings guiSettings) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook addressBook) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean hasPerson(seedu.address.model.person.Person person) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void deletePerson(seedu.address.model.person.Person target) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void addPerson(seedu.address.model.person.Person person) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setPerson(seedu.address.model.person.Person target,
+                              seedu.address.model.person.Person editedPerson) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public javafx.collections.ObservableList<seedu.address.model.person.Person> getFilteredPersonList() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void updateFilteredPersonList(
+                java.util.function.Predicate<seedu.address.model.person.Person> predicate) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    private static class LogicStub implements Logic {
+        @Override
+        public seedu.address.logic.commands.CommandResult execute(String commandText) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public javafx.collections.ObservableList<seedu.address.model.person.Person> getFilteredPersonList() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public seedu.address.commons.core.GuiSettings getGuiSettings() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setGuiSettings(seedu.address.commons.core.GuiSettings guiSettings) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    private static class UiStub implements Ui {
+        @Override
+        public void start(javafx.stage.Stage primaryStage) {
+            throw new UnsupportedOperationException();
         }
     }
 }
