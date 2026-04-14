@@ -44,9 +44,8 @@ public class PersonTest {
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
         assertTrue(BOB.isSamePerson(editedBob));
 
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
+        // name differs but phone remains the same -> returns true
+        editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB + " Junior").build();
         assertTrue(BOB.isSamePerson(editedBob));
     }
 
@@ -113,6 +112,16 @@ public class PersonTest {
     @Test
     public void constructor_joinDateBeforeDateOfBirth_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new PersonBuilder(ALICE).withJoinDate("01-01-1989").build());
+    }
+
+    @Test
+    public void getMemberStatus_expiredMembership_returnsInvalid() {
+        Person expiredMember = new PersonBuilder(ALICE)
+                .withJoinDate("01-01-2024")
+                .withExpiryDate("01-02-2024")
+                .build();
+
+        assertEquals("Invalid", expiredMember.getMemberStatus().toString());
     }
 
     @Test
