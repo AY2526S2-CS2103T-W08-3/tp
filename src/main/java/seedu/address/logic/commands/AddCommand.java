@@ -48,7 +48,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Added person: %1$s";
     public static final String MESSAGE_DUPLICATE_FIELDS = Messages.MESSAGE_DUPLICATE_FIELDS;
-    public static final String MESSAGE_PHONE_EQUALS_EMERGENCY_CONTACT = "Member phone number cannot be the same as the emergency contact number.";
+    public static final String MESSAGE_PHONE_EQUALS_EMERGENCY_CONTACT = Messages.MESSAGE_PHONE_EQUALS_EMERGENCY_CONTACT;
 
     private final Person toAdd;
     private Person addedPerson;
@@ -80,6 +80,7 @@ public class AddCommand extends Command {
         }
 
         if (toAdd.getPhone().toString().equals(toAdd.getEmergencyContact().toString())) {
+            GenerateMemberIds.decrementMaxId();
             throw new CommandException(MESSAGE_PHONE_EQUALS_EMERGENCY_CONTACT);
         }
 

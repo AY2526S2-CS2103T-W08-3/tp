@@ -26,6 +26,8 @@ public class Messages {
                 "Invalid range: the lower bound must be less than the upper bound.";
     public static final String MESSAGE_CONFLICTING_PREFIXES =
                 "The >, <, and = operators for the same field cannot all be used at once. Conflicting field(s): ";
+    public static final String MESSAGE_PHONE_EQUALS_EMERGENCY_CONTACT =
+            "Member phone number cannot be the same as the emergency contact number.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

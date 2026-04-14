@@ -71,6 +71,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             person = new Person(memberId, name, phone, gender, dateOfBirth, email, emergencyContact,
                     membershipType, joinDate, expiryDate, remark);
         } catch (IllegalArgumentException e) {
+            GenerateMemberIds.decrementMaxId();
             throw new ParseException(e.getMessage(), e);
         }
 
