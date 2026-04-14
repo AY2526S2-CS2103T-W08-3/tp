@@ -141,7 +141,8 @@
         "tab-completion": "Tab completion",
         "faq": "FAQ",
         "known-issues": "Known issues",
-        "command-summary": "Command summary"
+        "command-summary": "Command summary",
+        "parameter-constraints": "Parameter constraints"
       },
       "headingKeywords": {}
     },
